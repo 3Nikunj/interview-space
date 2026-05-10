@@ -1,0 +1,8 @@
+fastapi==0.115.12
+uvicorn[standard]==0.34.2
+python-multipart==0.0.20
+groq==0.30.0
+openai-whisper
+soundfile==0.13.1
+numpy==2.2.6
+kokoro

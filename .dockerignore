@@ -1,0 +1,9 @@
+node_modules
+.next
+npm-debug.log
+*.log
+__pycache__
+.venv
+.python-version
+.DS_Store
+
