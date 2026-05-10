@@ -3,7 +3,7 @@ FROM node:20-bookworm-slim
 WORKDIR /app
 
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends python3 python3-pip ffmpeg ca-certificates \
+  && apt-get install -y --no-install-recommends python3 python3-venv python3-pip ffmpeg ca-certificates \
   && rm -rf /var/lib/apt/lists/*
 
 COPY package.json package-lock.json* ./
@@ -17,7 +17,10 @@ COPY start.sh ./start.sh
 
 RUN chmod +x /app/start.sh
 
-RUN pip3 install --no-cache-dir -r /app/python_service/requirements.txt
+# PEP 668: avoid installing into system Python; use a venv.
+RUN python3 -m venv /opt/venv \
+  && /opt/venv/bin/pip install --no-cache-dir --upgrade pip \
+  && /opt/venv/bin/pip install --no-cache-dir -r /app/python_service/requirements.txt
 
 RUN npm run build \
   && mkdir -p .next/standalone/.next \
