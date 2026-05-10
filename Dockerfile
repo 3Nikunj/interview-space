@@ -24,10 +24,11 @@ RUN npm run build \
   && cp -r .next/static .next/standalone/.next/static \
   && cp -r public .next/standalone/public
 
-ENV PORT=7860
+# Cloud Run provides $PORT at runtime; keep a local default in start.sh.
 ENV PY_SERVICE_URL=http://127.0.0.1:8000
 
 EXPOSE 7860
 
 CMD ["/app/start.sh"]
+
 
